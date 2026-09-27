@@ -6,6 +6,8 @@ import 'team.dart';
 
 class Teams extends StatefulWidget{
 
+  const Teams({super.key});
+
   @override
   State<StatefulWidget> createState() => _TeamsState();
 }
@@ -19,15 +21,18 @@ class _TeamsState extends State<Teams> {
       appBar: AppBar(title: const Text('My Teams')),
       body: Column(
         children: [
-          ListView.builder(
-            itemCount: _teams.length,
-            itemBuilder: (BuildContext context, int index){
-
-            },
-          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: _teams.length,
+              itemBuilder: (BuildContext context, int index){
+                return ListTile(
+                  title: Text(_teams[index].name()),
+                );
+              },
+            ),
+          )
         ],
       ),
     );
   }
-
 }
