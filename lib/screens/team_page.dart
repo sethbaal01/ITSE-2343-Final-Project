@@ -2,29 +2,25 @@
 //ITSE-2343
 
 import 'package:flutter/material.dart';
-import '../objects/pokemon.dart';
+import '../objects/team.dart';
 
-class Team extends StatefulWidget{
-  final String teamName;
+class TeamPage extends StatefulWidget{
+  final Team team;
 
-  const Team ({super.key, required this.teamName});
-
-  String name() {
-    return teamName;
-  }
+  const TeamPage ({super.key, required this.team});
 
   @override
-  State<StatefulWidget> createState() => _TeamState();
+  State<StatefulWidget> createState() => _TeamPageState();
 }
 
-class _TeamState extends State<Team> {
-
-  final List<Pokemon?> _team = List.filled(6, null);
+class _TeamPageState extends State<TeamPage> {
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('My Teams')),
+      appBar: AppBar(
+        title: Text(widget.team.teamName),
+      ),
       body: Column(
         children: [
           ListView.separated(
