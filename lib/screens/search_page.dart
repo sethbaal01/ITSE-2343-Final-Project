@@ -9,7 +9,8 @@ import 'team_page.dart';
 import '../objects/team.dart';
 
 class SearchPage extends StatefulWidget {
-  List<String> testSearch = [
+  //list of pokemon to test with
+  final List<String> testSearch = [
     'Pikachu',
     'Charmander',
     'Bulbasaur',
