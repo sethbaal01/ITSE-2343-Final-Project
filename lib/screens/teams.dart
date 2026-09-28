@@ -2,6 +2,7 @@
 //ITSE-2343
 
 import 'package:flutter/material.dart';
+import 'package:movie_lister_app/objects/pokemon.dart';
 import 'team_page.dart';
 import '../objects/team.dart';
 
@@ -57,7 +58,7 @@ class _TeamsState extends State<Teams> {
                   _teams.add(
                     Team(
                       teamName: teamName,
-                      pokemon: List.filled(6, null),
+                      pokemon: List.filled(6, Pokemon(name : '', picture: '')),
                     ),
                   );
                 });

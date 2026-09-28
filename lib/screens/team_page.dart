@@ -3,6 +3,7 @@
 
 import 'package:flutter/material.dart';
 import '../objects/team.dart';
+import 'search_page.dart';
 
 class TeamPage extends StatefulWidget{
   final Team team;
@@ -21,28 +22,26 @@ class _TeamPageState extends State<TeamPage> {
       appBar: AppBar(
         title: Text(widget.team.teamName),
       ),
-      body: Column(
-        children: [
-          ListView.separated(
+        body: ListView.separated(
             itemCount: 6,
 
             itemBuilder: (BuildContext context, int index) {
               return Card(
                 child: ListTile(
-                  leading: const Icon(Icons.catching_pokemon),
+                  leading: const Icon(Icons.catching_pokemon_outlined),
                   title: Text('Pokemon Slot ${index + 1}'),
-                  trailing: const Icon(Icons.add),
+                  trailing: IconButton(
+                      onPressed: () { SearchPage(); },
+                      icon: Icon(Icons.add),
+                  ),
                 ),
               );
             },
-
             separatorBuilder: (BuildContext context, int index) {
               return const SizedBox(height: 10);
             },
           )
-        ],
-      ),
+
     );
   }
-
 }
