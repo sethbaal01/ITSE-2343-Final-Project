@@ -8,8 +8,5 @@ class Team {
   String teamName;
   List<Pokemon?> pokemon;
 
-  Team({
-    required this.teamName,
-    required this.pokemon,
-  });
+  Team({required this.teamName, required this.pokemon});
 }

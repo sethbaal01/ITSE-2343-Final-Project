@@ -1,14 +1,16 @@
 //Seth Baal
 //ITSE-2343
 
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
-import 'package:movie_lister_app/objects/pokemon.dart';
-import 'team_page.dart';
-import '../objects/team.dart';
 
 class SearchPage extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => _SearchPageState();
+}
+
+class _SearchPageState extends State<SearchPage> {
+  final TextEditingController _controller = TextEditingController();
+
   //list of pokemon to test with
   final List<String> testSearch = [
     'Pikachu',
@@ -19,16 +21,48 @@ class SearchPage extends StatefulWidget {
     'Ratatta',
   ];
 
-  @override
-  State<StatefulWidget> createState() => _SearchPageState();
-}
-
-class _SearchPageState extends State<SearchPage> {
+  //store results here to return in listview
+  List<String> searchResults = [];
 
   //implement search function
+  void _searchList(String text) {
+    setState(() {
+      List<String> matches = testSearch.where((item) {
+        return item.toLowerCase().contains(text.toLowerCase());
+      }).toList();
+
+      searchResults = matches;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-
+    return Scaffold(
+      appBar: AppBar(title: Text('Search For Pokemon'), centerTitle: true),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: TextField(
+              controller: _controller,
+              autofocus: true,
+              decoration: const InputDecoration(
+                hintText: 'Search for Pokemon',
+                border: OutlineInputBorder(),
+              ),
+              onChanged: _searchList,
+            ),
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: searchResults.length,
+              itemBuilder: (context, index) {
+                return ListTile(title: Text(searchResults[index]));
+              },
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

@@ -3,6 +3,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:movie_lister_app/objects/pokemon.dart';
+
 import 'team_page.dart';
 import '../objects/team.dart';
 
@@ -29,12 +30,9 @@ class _TeamsState extends State<Teams> {
           content: TextField(
             controller: controller,
             autofocus: true,
-            decoration: const InputDecoration(
-              hintText: 'Enter a Team Name',
-            ),
+            decoration: const InputDecoration(hintText: 'Enter a Team Name'),
           ),
           actions: [
-
             //button to pop and cancel
             TextButton(
               onPressed: () {
@@ -58,7 +56,7 @@ class _TeamsState extends State<Teams> {
                   _teams.add(
                     Team(
                       teamName: teamName,
-                      pokemon: List.filled(6, Pokemon(name : '', picture: '')),
+                      pokemon: List.filled(6, Pokemon(name: '', picture: '')),
                     ),
                   );
                 });
@@ -77,9 +75,7 @@ class _TeamsState extends State<Teams> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('My Teams'),
-      ),
+      appBar: AppBar(title: const Text('My Teams')),
 
       body: ListView.builder(
         itemCount: _teams.length,
@@ -92,9 +88,7 @@ class _TeamsState extends State<Teams> {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => TeamPage(team : team),
-                ),
+                MaterialPageRoute(builder: (context) => TeamPage(team: team)),
               );
             },
           );
