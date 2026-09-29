@@ -88,6 +88,7 @@ class _TeamsState extends State<Teams> {
           return ListTile(
             title: Text(team.teamName),
 
+            //when user selects the list, take them to that teamPage
             onTap: () {
               Navigator.push(
                 context,
@@ -100,6 +101,7 @@ class _TeamsState extends State<Teams> {
         },
       ),
 
+      //call _addTeam to create a new team
       floatingActionButton: FloatingActionButton(
         onPressed: _addTeam,
         child: const Icon(Icons.add),
