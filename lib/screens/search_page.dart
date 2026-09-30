@@ -1,6 +1,10 @@
 //Seth Baal
 //ITSE-2343
 
+import 'dart:convert';
+import 'dart:io';
+import 'package:path_provider/path_provider.dart';
+
 import 'package:flutter/material.dart';
 
 class SearchPage extends StatefulWidget {
@@ -21,11 +25,14 @@ class _SearchPageState extends State<SearchPage> {
     'Ratatta',
   ];
 
-  //load file into list
-  final List<String> pokemonList = [];
-
   //store results here to return in listview
   List<String> searchResults = [];
+
+  @override
+  Future<void> initState() {
+    searchResults = List.from(testSearch);
+    super.initState();
+  }
 
   //implement search function
   void _searchList(String text) {
@@ -36,6 +43,27 @@ class _SearchPageState extends State<SearchPage> {
 
       searchResults = matches;
     });
+  }
+
+  //functions for reading text file
+  Future<String> get _localPath async {
+    final directory = await getApplicationDocumentsDirectory();
+    return directory.path;
+  }
+
+  Future<File> get _localFile async {
+    final path = await _localPath;
+    return File('$path/pokemon.txt');
+  }
+
+  Future<List<String>> _readData() async {
+    try {
+      final file = await _localFile;
+      final contents = await file.readAsLines();
+      return contents;
+    } catch (e) {
+      return ['error reading file'];
+    }
   }
 
   //load file into list
@@ -55,7 +83,7 @@ class _SearchPageState extends State<SearchPage> {
                 hintText: 'Search for Pokemon',
                 border: OutlineInputBorder(),
               ),
-              onChanged: _searchList,
+              onChanged: _searchList, //replace here
             ),
           ),
           Expanded(
