@@ -30,7 +30,10 @@ class _TeamPageState extends State<TeamPage> {
               title: Text('Pokemon Slot ${index + 1}'),
               trailing: IconButton(
                 onPressed: () {
-                  SearchPage();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => SearchPage()),
+                  );
                 },
                 icon: Icon(Icons.add),
               ),

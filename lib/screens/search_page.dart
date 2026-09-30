@@ -21,6 +21,9 @@ class _SearchPageState extends State<SearchPage> {
     'Ratatta',
   ];
 
+  //load file into list
+  final List<String> pokemonList = [];
+
   //store results here to return in listview
   List<String> searchResults = [];
 
@@ -34,6 +37,8 @@ class _SearchPageState extends State<SearchPage> {
       searchResults = matches;
     });
   }
+
+  //load file into list
 
   @override
   Widget build(BuildContext context) {
