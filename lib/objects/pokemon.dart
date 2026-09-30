@@ -1,3 +1,6 @@
+//Seth Baal
+//ITSE-2343
+
 class Pokemon {
   final String name;
   final String picture;

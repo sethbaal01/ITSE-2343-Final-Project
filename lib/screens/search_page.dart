@@ -1,13 +1,11 @@
 //Seth Baal
 //ITSE-2343
 
-import 'dart:convert';
-import 'dart:io';
-import 'package:path_provider/path_provider.dart';
-
+import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
 class SearchPage extends StatefulWidget {
+  const SearchPage({super.key});
   @override
   State<StatefulWidget> createState() => _SearchPageState();
 }
@@ -16,22 +14,17 @@ class _SearchPageState extends State<SearchPage> {
   final TextEditingController _controller = TextEditingController();
 
   //list of pokemon to test with
-  final List<String> testSearch = [
-    'Pikachu',
-    'Charmander',
-    'Bulbasaur',
-    'Squirtle',
-    'Pidgey',
-    'Ratatta',
-  ];
+  final List<String> testSearch = [];
 
   //store results here to return in listview
   List<String> searchResults = [];
 
   @override
-  Future<void> initState() {
-    searchResults = List.from(testSearch);
+  void initState() {
     super.initState();
+
+    //read file on opening of searchPage
+    _loadFile();
   }
 
   //implement search function
@@ -45,28 +38,35 @@ class _SearchPageState extends State<SearchPage> {
     });
   }
 
+  //R/W functions
+  //----------------------------------------
+
   //functions for reading text file
-  Future<String> get _localPath async {
-    final directory = await getApplicationDocumentsDirectory();
-    return directory.path;
-  }
-
-  Future<File> get _localFile async {
-    final path = await _localPath;
-    return File('$path/pokemon.txt');
-  }
-
   Future<List<String>> _readData() async {
     try {
-      final file = await _localFile;
-      final contents = await file.readAsLines();
-      return contents;
+      String contents = await rootBundle.loadString('lib/pokemon.txt');
+
+      //return file as individual lines
+      return contents.split('\n');
     } catch (e) {
       return ['error reading file'];
     }
   }
 
+  //------------------------------------------
+
   //load file into list
+  Future<void> _loadFile() async {
+    List<String> fileData = await _readData();
+
+    //set state after reading in data
+    setState(() {
+      testSearch.addAll(fileData);
+
+      //show all pokemon on opening -- moved here from init because this gets called anyways
+      searchResults = List.from(testSearch);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -79,11 +79,19 @@ class _SearchPageState extends State<SearchPage> {
             child: TextField(
               controller: _controller,
               autofocus: true,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 hintText: 'Search for Pokemon',
-                border: OutlineInputBorder(),
+                prefixIcon: const Icon(Icons.search),
+                suffixIcon: IconButton(
+                  icon: const Icon(Icons.clear),
+                  onPressed: () {
+                    _controller.clear();
+                    _searchList('');
+                  },
+                ),
+                border: const OutlineInputBorder(),
               ),
-              onChanged: _searchList, //replace here
+              onChanged: _searchList,
             ),
           ),
           Expanded(

@@ -15,6 +15,12 @@ class MyApp extends StatelessWidget {
   //calls the teams page, which is the 'homepage' here
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(title: 'Pokemon Team Builder', home: Teams());
+    return MaterialApp(
+      title: 'Pokemon Team Builder',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.red),
+      ),
+      home: Teams(),
+    );
   }
 }

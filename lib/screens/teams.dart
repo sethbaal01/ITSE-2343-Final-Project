@@ -2,7 +2,8 @@
 //ITSE-2343
 
 import 'package:flutter/material.dart';
-import 'package:movie_lister_app/objects/pokemon.dart';
+
+import '../objects/pokemon.dart';
 
 import 'team_page.dart';
 import '../objects/team.dart';
