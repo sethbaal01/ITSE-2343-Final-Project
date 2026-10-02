@@ -4,6 +4,9 @@
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
+import '../objects/pokemon.dart';
+import '../services/pokemon_api.dart';
+
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
   @override
@@ -105,7 +108,16 @@ class _SearchPageState extends State<SearchPage> {
             child: ListView.builder(
               itemCount: searchResults.length,
               itemBuilder: (context, index) {
-                return ListTile(title: Text(searchResults[index]));
+                return ListTile(
+                  title: Text(searchResults[index]),
+                  onTap: () async {
+                    String pokemonName = searchResults[index];
+
+                    Pokemon pokemon = await PokemonApi().fetchPokemon(
+                      pokemonName,
+                    );
+                  },
+                );
               },
             ),
           ),
