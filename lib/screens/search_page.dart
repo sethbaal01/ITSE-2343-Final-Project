@@ -44,7 +44,7 @@ class _SearchPageState extends State<SearchPage> {
   //functions for reading text file
   Future<List<String>> _readData() async {
     try {
-      String contents = await rootBundle.loadString('lib/pokemon.txt');
+      String contents = await rootBundle.loadString('lib/services/pokemon.txt');
 
       //return file as individual lines
       return contents.split('\n');
@@ -71,7 +71,14 @@ class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Search For Pokemon'), centerTitle: true),
+      appBar: AppBar(
+        title: Text(
+          'Search For Pokemon',
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.red,
+      ),
       body: Column(
         children: [
           Padding(
