@@ -4,15 +4,21 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:flutter/material.dart';
 import 'package:movie_lister_app/objects/pokemon.dart';
 
 class PokemonApi {
   //make a network request and convert response into a pokemon object
   Future<Pokemon> fetchPokemon(String name) async {
     final response = await http.get(
-      Uri.parse('https://pokeapi.co/api/v2/pokemon/$name'),
+      Uri.parse(
+        'https://pokeapi.co/api/v2/pokemon/${name.trim().toLowerCase()}',
+      ), //pokeapi uses all lowercase, so we need to turn our pokemon searches to match that format
+      //we also need to use .trim()
     );
+
+    //test printing to find errors
+    print('StatusCode: ${response.statusCode}');
+    print('URL: ${response.request?.url}');
 
     if (response.statusCode == 200) {
       //200 for good response

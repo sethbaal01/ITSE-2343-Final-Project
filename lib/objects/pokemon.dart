@@ -18,4 +18,14 @@ class Pokemon {
       _ => throw const FormatException('Failed to load Pokemon!'),
     };
   }
+
+  //factory constructor for reading from our shared_preferences json files
+  factory Pokemon.fromSavedJson(Map<String, dynamic> json) {
+    return Pokemon(name: json['name'], picture: json['picture']);
+  }
+
+  //function to write pokemon back to json
+  Map<String, dynamic> toJson() {
+    return {'name': name, 'picture': picture};
+  }
 }

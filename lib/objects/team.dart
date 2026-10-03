@@ -9,4 +9,22 @@ class Team {
   List<Pokemon> pokemon;
 
   Team({required this.teamName, required this.pokemon});
+
+  //factory consstructor to read from shared_preferences json
+  factory Team.fromSavedJson(Map<String, dynamic> json) {
+    return Team(
+      teamName: json['teamName'],
+      pokemon: (json['pokemon'] as List)
+          .map((pokemon) => Pokemon.fromSavedJson(pokemon))
+          .toList(),
+    );
+  }
+
+  //function to turn team back into json
+  Map<String, dynamic> toJson() {
+    return {
+      'teamName': teamName,
+      'pokemon': pokemon.map((pokemon) => pokemon.toJson()).toList(),
+    };
+  }
 }

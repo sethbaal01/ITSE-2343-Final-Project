@@ -81,6 +81,8 @@ class _TeamsState extends State<Teams> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[100],
+
       appBar: AppBar(
         title: const Text(
           'My Pokemon Teams',
@@ -89,9 +91,6 @@ class _TeamsState extends State<Teams> {
         centerTitle: true,
         backgroundColor: Colors.red,
       ),
-
-      //whole page background color
-      backgroundColor: Colors.grey[100],
 
       body: _teams.isEmpty
           ? const Center(

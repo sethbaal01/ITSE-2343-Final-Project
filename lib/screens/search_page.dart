@@ -8,7 +8,9 @@ import '../objects/pokemon.dart';
 import '../services/pokemon_api.dart';
 
 class SearchPage extends StatefulWidget {
-  const SearchPage({super.key});
+  final int slotIndex;
+  const SearchPage({super.key, required this.slotIndex});
+
   @override
   State<StatefulWidget> createState() => _SearchPageState();
 }
@@ -74,6 +76,8 @@ class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[100],
+
       appBar: AppBar(
         title: Text(
           'Search For Pokemon',
@@ -116,6 +120,10 @@ class _SearchPageState extends State<SearchPage> {
                     Pokemon pokemon = await PokemonApi().fetchPokemon(
                       pokemonName,
                     );
+                    //send back to team page
+                    if (mounted) {
+                      Navigator.pop(context, pokemon);
+                    }
                   },
                 );
               },
