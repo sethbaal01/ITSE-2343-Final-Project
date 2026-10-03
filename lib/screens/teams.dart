@@ -31,7 +31,12 @@ class _TeamsState extends State<Teams> {
           content: TextField(
             controller: controller,
             autofocus: true,
-            decoration: const InputDecoration(hintText: 'Enter a Team Name'),
+            decoration: const InputDecoration(
+              hintText: 'Enter a Team Name',
+              focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.red),
+              ),
+            ),
           ),
           actions: [
             //button to pop and cancel
@@ -39,7 +44,7 @@ class _TeamsState extends State<Teams> {
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: const Text('Cancel'),
+              child: const Text('Cancel', style: TextStyle(color: Colors.red)),
             ),
 
             //button to save and pop
@@ -65,7 +70,7 @@ class _TeamsState extends State<Teams> {
                 // Close dialog
                 Navigator.pop(context);
               },
-              child: const Text('Save'),
+              child: const Text('Save', style: TextStyle(color: Colors.red)),
             ),
           ],
         );
@@ -76,25 +81,85 @@ class _TeamsState extends State<Teams> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('My Teams')),
+      backgroundColor: Colors.grey[100],
 
-      body: ListView.builder(
-        itemCount: _teams.length,
-        itemBuilder: (context, index) {
-          final team = _teams[index];
-
-          return ListTile(
-            title: Text(team.teamName),
-
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => TeamPage(team: team)),
-              );
-            },
-          );
-        },
+      appBar: AppBar(
+        title: const Text(
+          'My Pokemon Teams',
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.red,
       ),
+
+      body: _teams.isEmpty
+          ? const Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.catching_pokemon_outlined,
+                    size: 60,
+                    color: Colors.red,
+                  ),
+                  SizedBox(height: 8),
+                  Text(
+                    'Press   +   to Create Your First Team!',
+                    style: TextStyle(color: Colors.grey, fontSize: 16),
+                  ),
+                ],
+              ),
+            )
+          : ListView.builder(
+              itemCount: _teams.length,
+              padding: const EdgeInsets.all(12),
+              itemBuilder: (context, index) {
+                final team = _teams[index];
+
+                return Card(
+                  elevation: 3,
+                  margin: const EdgeInsets.all(12),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: ListTile(
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 8,
+                    ),
+
+                    //Pokemon Icon
+                    leading: CircleAvatar(
+                      backgroundColor: Colors.white,
+                      child: const Icon(
+                        Icons.catching_pokemon_outlined,
+                        color: Colors.red,
+                      ),
+                    ),
+
+                    //Team Name
+                    title: Text(team.teamName),
+
+                    //Trailing arrow
+                    trailing: const Icon(
+                      Icons.arrow_forward,
+                      size: 18,
+                      color: Colors.red,
+                    ),
+
+                    //When a team is tapped, go to team_page
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: ((context) => TeamPage(team: team)),
+                        ),
+                      );
+                    },
+                  ),
+                );
+              },
+            ),
 
       floatingActionButton: FloatingActionButton(
         onPressed: _addTeam,
