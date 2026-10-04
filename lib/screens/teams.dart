@@ -7,6 +7,7 @@ import '../objects/pokemon.dart';
 
 import 'team_page.dart';
 import '../objects/team.dart';
+import '../services/save_management.dart';
 
 class Teams extends StatefulWidget {
   const Teams({super.key});
@@ -17,6 +18,13 @@ class Teams extends StatefulWidget {
 
 class _TeamsState extends State<Teams> {
   final List<Team> _teams = [];
+
+  //init function, override is to allow for loading in of saved teams
+  @override
+  void initState() {
+    super.initState();
+    _loadTeams();
+  }
 
   // Method to add a team to _teams
   void _addTeam() {
@@ -66,6 +74,8 @@ class _TeamsState extends State<Teams> {
                     ),
                   );
                 });
+                //save team when closed
+                SaveManagement.saveTeams(_teams);
 
                 // Close dialog
                 Navigator.pop(context);
@@ -77,6 +87,18 @@ class _TeamsState extends State<Teams> {
       },
     );
   }
+
+  //-----------------------------------
+  //load teams function
+  Future<void> _loadTeams() async {
+    final teams = await SaveManagement.loadTeams();
+
+    setState(() {
+      _teams.addAll(teams);
+    });
+  }
+
+  //-----------------------------------
 
   @override
   Widget build(BuildContext context) {
@@ -148,13 +170,15 @@ class _TeamsState extends State<Teams> {
                     ),
 
                     //When a team is tapped, go to team_page
-                    onTap: () {
-                      Navigator.push(
+                    onTap: () async {
+                      await Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: ((context) => TeamPage(team: team)),
+                          builder: (context) => TeamPage(team: team),
                         ),
                       );
+
+                      await SaveManagement.saveTeams(_teams);
                     },
                   ),
                 );

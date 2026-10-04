@@ -10,7 +10,7 @@ class Team {
 
   Team({required this.teamName, required this.pokemon});
 
-  //factory consstructor to read from shared_preferences json
+  //factory constructor to read from shared_preferences json
   factory Team.fromSavedJson(Map<String, dynamic> json) {
     return Team(
       teamName: json['teamName'],
