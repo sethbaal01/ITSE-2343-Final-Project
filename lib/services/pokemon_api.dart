@@ -17,8 +17,8 @@ class PokemonApi {
     );
 
     //test printing to find errors
-    print('StatusCode: ${response.statusCode}');
-    print('URL: ${response.request?.url}');
+    // print('StatusCode: ${response.statusCode}');
+    // print('URL: ${response.request?.url}');
 
     if (response.statusCode == 200) {
       //200 for good response
