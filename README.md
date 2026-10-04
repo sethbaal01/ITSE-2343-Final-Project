@@ -1,4 +1,5 @@
 # Final Project Documentation
+# Pokemon_Team_Builder
 
 **Application Name:** *Pokemon Team Builder*
 **Author:** *Seth Baal*
