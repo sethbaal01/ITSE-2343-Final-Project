@@ -1,3 +1,6 @@
+//Seth Baal
+//ITSE-2343
+
 import 'dart:convert';
 
 import '../objects/team.dart';
